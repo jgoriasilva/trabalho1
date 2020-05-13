@@ -9,14 +9,13 @@ void yyerror(char *);
 %}
 
 /*
-%token NUMERO '+' '-' '*' '/' '^' '(' ')' EOL
+%token NUMERO '+' '*' '/' '^' '(' ')' EOL
 */
 
 
 %%
 
 \+ { return '+'; }
-\- { return '-'; }
 \* { return '*'; }
 \/ { return '/'; }
 \^ { return '^'; }

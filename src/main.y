@@ -9,18 +9,17 @@ int yylex(void);
 
 %}
 
-%token NUMERO '+' '-' '*' '/' '^' '(' ')' EOL
+%token NUMERO '+' '*' '/' '^' '(' ')' EOL
 
 %%
 
 S:
- 	 S exp1 EOL { printf("Resultado: %d\n", $2); }
+ 	S exp1 EOL { printf("Resultado: %d\n", $2); }
  	|
 	;
 
 exp1:
 	exp1 '+' exp2 {  $$ = $1 + $3; printf("soma: %d\n", $$); }
-	| exp1 '-' exp2 { $$ = $1 - $3; printf("sub: %d\n", $$); }
 	| exp2 { $$ = $1; printf("exp2: %d\n", $$); }
 	;
 	
