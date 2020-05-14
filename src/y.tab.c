@@ -69,9 +69,10 @@
 #include "math.h"
 void yyerror(char *c);
 int yylex(void);
+int count=0;
 
 
-#line 75 "src/y.tab.c" /* yacc.c:339  */
+#line 76 "src/y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -130,7 +131,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 134 "src/y.tab.c" /* yacc.c:358  */
+#line 135 "src/y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -427,8 +428,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    17,    17,    18,    22,    23,    27,    28,    29,    32,
-      33,    37,    38
+       0,    18,    18,    19,    23,    24,    28,    29,    30,    33,
+      34,    38,    39
 };
 #endif
 
@@ -1202,67 +1203,67 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 17 "src/main.y" /* yacc.c:1646  */
+#line 18 "src/main.y" /* yacc.c:1646  */
     { printf("POP A\nResultado: %d\n", (yyvsp[-1])); }
-#line 1208 "src/y.tab.c" /* yacc.c:1646  */
+#line 1209 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 22 "src/main.y" /* yacc.c:1646  */
+#line 23 "src/main.y" /* yacc.c:1646  */
     {  (yyval) = (yyvsp[-2]) + (yyvsp[0]); printf("POP A\nPOP B\nADD A, B\nPUSH A\n"); }
-#line 1214 "src/y.tab.c" /* yacc.c:1646  */
+#line 1215 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 23 "src/main.y" /* yacc.c:1646  */
+#line 24 "src/main.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
-#line 1220 "src/y.tab.c" /* yacc.c:1646  */
+#line 1221 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 27 "src/main.y" /* yacc.c:1646  */
+#line 28 "src/main.y" /* yacc.c:1646  */
     {  (yyval) = (yyvsp[-2]) * (yyvsp[0]); printf("POP A\nPOP B\nMUL B\nPUSH A\n"); }
-#line 1226 "src/y.tab.c" /* yacc.c:1646  */
+#line 1227 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 28 "src/main.y" /* yacc.c:1646  */
+#line 29 "src/main.y" /* yacc.c:1646  */
     {  (yyval) = (yyvsp[-2]) / (yyvsp[0]); printf("POP B\nPOP A\nDIV B\nPUSH A\n"); }
-#line 1232 "src/y.tab.c" /* yacc.c:1646  */
+#line 1233 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 29 "src/main.y" /* yacc.c:1646  */
+#line 30 "src/main.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); /*printf("exp3: %d\n", $$);*/ }
-#line 1238 "src/y.tab.c" /* yacc.c:1646  */
+#line 1239 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 32 "src/main.y" /* yacc.c:1646  */
-    { (yyval) = pow((yyvsp[-2]),(yyvsp[0])); printf("pow: %d\n", (yyval)); }
-#line 1244 "src/y.tab.c" /* yacc.c:1646  */
+#line 33 "src/main.y" /* yacc.c:1646  */
+    { (yyval) = pow((yyvsp[-2]),(yyvsp[0])); printf("POP B\nPOP C\nMOV A, C\n.loop%d:\nMUL C\nDEC B\nCMP B, 1\nJNE .loop%d\nPUSH A\n", count, count); count++; }
+#line 1245 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 33 "src/main.y" /* yacc.c:1646  */
+#line 34 "src/main.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); /*printf("exp4: %d\n", $$);*/ }
-#line 1250 "src/y.tab.c" /* yacc.c:1646  */
+#line 1251 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 37 "src/main.y" /* yacc.c:1646  */
+#line 38 "src/main.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-1]); }
-#line 1256 "src/y.tab.c" /* yacc.c:1646  */
+#line 1257 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 38 "src/main.y" /* yacc.c:1646  */
+#line 39 "src/main.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); printf ("PUSH %d\n", (yyvsp[0])); }
-#line 1262 "src/y.tab.c" /* yacc.c:1646  */
+#line 1263 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1266 "src/y.tab.c" /* yacc.c:1646  */
+#line 1267 "src/y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1490,7 +1491,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 43 "src/main.y" /* yacc.c:1906  */
+#line 44 "src/main.y" /* yacc.c:1906  */
 
 
 void yyerror(char *s) {

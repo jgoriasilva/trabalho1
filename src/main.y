@@ -6,6 +6,7 @@
 #include "math.h"
 void yyerror(char *c);
 int yylex(void);
+int count=0;
 
 %}
 
@@ -29,7 +30,7 @@ exp2:
 	| exp3 { $$ = $1; /*printf("exp3: %d\n", $$);*/ }
 	;
 exp3:
- 	exp3 '^' exp4 { $$ = pow($1,$3); printf("pow: %d\n", $$); }
+ 	exp3 '^' exp4 { $$ = pow($1,$3); printf("POP B\nPOP C\nMOV A, C\n.loop%d:\nMUL C\nDEC B\nCMP B, 1\nJNE .loop%d\nPUSH A\n", count, count); count++; }
 	| exp4 { $$ = $1; /*printf("exp4: %d\n", $$);*/ }
 	;
 
