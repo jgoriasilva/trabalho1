@@ -60,7 +60,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 15 "src/main.y" /* yacc.c:1909  */
+#line 16 "src/main.y" /* yacc.c:1909  */
 
 	int valor;
 	char rotulo;

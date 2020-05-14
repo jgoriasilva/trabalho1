@@ -15,9 +15,9 @@ LEX = flex
 
 
 # Macros para teste
-BASH = sh
-TEST_SCRIPT = test.sh
-VERBOSE ?= 1
+# BASH = sh
+# TEST_SCRIPT = test.sh
+# VERBOSE ?= 1
 
 # Macros para construcao do zip
 ZIP = zip
@@ -43,6 +43,9 @@ test:all
 
 zip:clean
 	$(ZIP) -R $(ZIPFILE)  Makefile $(EXTENSIONS)
+
+run:all
+	$(TARGET)
 
 clean:
 	$(RM) $(YYTABC)
