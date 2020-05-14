@@ -14,28 +14,28 @@ int yylex(void);
 %%
 
 S:
- 	S exp1 EOL { printf("Resultado: %d\n", $2); }
+ 	S exp1 EOL { printf("POP A\nResultado: %d\n", $2); }
  	|
 	;
 
 exp1:
-	exp1 '+' exp2 {  $$ = $1 + $3; printf("soma: %d\n", $$); }
-	| exp2 { $$ = $1; printf("exp2: %d\n", $$); }
+	exp1 '+' exp2 {  $$ = $1 + $3; printf("POP A\nPOP B\nADD A, B\nPUSH A\n"); }
+	| exp2 { $$ = $1; }
 	;
 	
 exp2:
-	exp2 '*' exp2 { $$ = $1 * $3; printf("mul: %d\n", $$); } 
-	| exp2 '/' exp2 { $$ = $1 / $3; printf("div: %d\n", $$); }
-	| exp3 { $$ = $1; printf("exp3: %d\n", $$); }
+	exp2 '*' exp3 {  $$ = $1 * $3; printf("POP A\nPOP B\nMUL B\nPUSH A\n"); }
+	| exp2 '/' exp3 {  $$ = $1 / $3; printf("POP B\nPOP A\nDIV B\nPUSH A\n"); }
+	| exp3 { $$ = $1; /*printf("exp3: %d\n", $$);*/ }
 	;
 exp3:
  	exp3 '^' exp4 { $$ = pow($1,$3); printf("pow: %d\n", $$); }
-	| exp4 { $$ = $1; printf("exp4: %d\n", $$); }
+	| exp4 { $$ = $1; /*printf("exp4: %d\n", $$);*/ }
 	;
 
 exp4:
-	'(' exp1 ')' { $$ = $2; printf("par: %d\n", $$); }
-	| NUMERO { $$ = $1; printf ("num: %d\n", $1); }
+	'(' exp1 ')' { $$ = $2; }
+	| NUMERO { $$ = $1; printf ("PUSH %d\n", $1); }
 	;
 
 
