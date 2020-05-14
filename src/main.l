@@ -15,14 +15,16 @@ void yyerror(char *);
 
 %%
 
-\+ { return '+'; }
-\* { return '*'; }
-\/ { return '/'; }
-\^ { return '^'; }
-\( { return '('; }
-\) { return ')'; }
-\n { return EOL; }
-[0-9]+ { yylval = atoi(yytext); return NUMERO; }
+\+ 	{ return '+'; }
+\* 	{ return '*'; }
+\/ 	{ return '/'; }
+\^ 	{ return '^'; }
+\( 	{ return '('; }
+\) 	{ return ')'; }
+\= 	{ return '='; }
+\n 	{ return EOL; }
+[0-9]+ 	{ yylval.valor = atoi(yytext); return NUM; }
+[a-z]	{ yylval.rotulo = yytext[0];   return VAR; }
 . 
 
 %%
