@@ -9,6 +9,7 @@ int yylex(void);
 int count=0;
 int mem[26];
 int flag[26] = {0};
+int vcount[26] = {0}; 
 
 %}
 
@@ -32,9 +33,11 @@ S:
 	;
 
 C:
- 	VAR '=' exp1 {	mem[$<rotulo>1-'a'] = $<valor>3; 
-			printf("\tJMP jump%c\nv%c:\n\tDB %d\njump%c:\n", $<rotulo>1, $<rotulo>1, $<valor>3, $<rotulo>1); 
-			flag[$<rotulo>1-'a'] = 1; }
+ 	VAR '=' exp1 {	char name = $<rotulo>1;
+			mem[name-'a'] = $<valor>3; 
+			printf("\tJMP jump%c%d\nv%c%d:\n\tDB %d\njump%c%d:\n", name, vcount[name-'a'], name, vcount[name-'a'], $<valor>3, name, vcount[name-'a']); 
+			flag[name-'a'] = 1;
+			vcount[name-'a']++; }
 	;
 
 exp1:
@@ -61,9 +64,10 @@ exp4:
 	'(' exp1 ')' { $<valor>$ = $<valor>2; }
 	| NUM { $<valor>$ = $<valor>1; 
 		printf ("\tPUSH %d\n", $<valor>1); }
-	| VAR { $<valor>$ = mem[$<rotulo>1-'a']; 
+	| VAR { char name = $<rotulo>1;
+		$<valor>$ = mem[name-'a']; 
 		if(flag[$<rotulo>1-'a']) 
-			printf("\tMOV C, v%c\n\tPUSH [C]\n", $<rotulo>1); 
+			printf("\tMOV C, v%c%d\n\tPUSH [C]\n", name, vcount[name-'a']-1 ); 
 		else{ 
 			printf("; "); 
 			yyerror("Variavel nao declarada"); } }
