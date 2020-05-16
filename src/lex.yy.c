@@ -455,7 +455,7 @@ void yyerror(char *);
 
 #line 457 "src/lex.yy.c"
 /*
-%token NUMERO '+' '*' '/' '^' '(' ')' EOL
+%token NUM VAR '+' '*' '/' '^' '(' ')' '=' EOL
 */
 #line 461 "src/lex.yy.c"
 
@@ -677,7 +677,16 @@ YY_DECL
 #line 16 "src/main.l"
 
 
-#line 681 "src/lex.yy.c"
+#line 19 "src/main.l"
+	/* Lista de regras para geração dos tokens visando implementar uma calculadora. 
+	*  As operações da calculadora são +, *, /, ^ e os parênteses ( e ).
+	*  A identificação dos tokens é auto-explicativa.	
+	*  Há também os tokens '=' e EOL, que representam os caracteres = e \n, respectivamente.
+	*  O primeiro serve para que a calculadora execute atribuição de valores a variaveis.
+	*  O segundo, para indicar o fim de uma expressão/comando a ser executado pela calculadora. 
+	*/
+
+#line 690 "src/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -736,66 +745,69 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 18 "src/main.l"
+#line 27 "src/main.l"
 { return '+'; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 19 "src/main.l"
+#line 28 "src/main.l"
 { return '*'; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "src/main.l"
+#line 29 "src/main.l"
 { return '/'; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "src/main.l"
+#line 30 "src/main.l"
 { return '^'; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 22 "src/main.l"
+#line 31 "src/main.l"
 { return '('; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "src/main.l"
+#line 32 "src/main.l"
 { return ')'; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "src/main.l"
+#line 33 "src/main.l"
 { return '='; }
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 25 "src/main.l"
+#line 34 "src/main.l"
 { return EOL; }
 	YY_BREAK
+/* Os números suportados pela calculadora são inteiros. Os tokens relacionados a estes são chamados de NUM */
 case 9:
 YY_RULE_SETUP
-#line 26 "src/main.l"
+#line 37 "src/main.l"
 { yylval.valor = atoi(yytext); return NUM; }
 	YY_BREAK
+/* As variáveis implementadas são caracteres simples do alfabeto inglês i.e. letras de a até z. Os tokens são chamados de VAR. */
 case 10:
 YY_RULE_SETUP
-#line 27 "src/main.l"
+#line 40 "src/main.l"
 { yylval.rotulo = yytext[0];   return VAR; }
 	YY_BREAK
+/* A calculadora ignora caracteres diferentes dos supracitados. */
 case 11:
 YY_RULE_SETUP
-#line 28 "src/main.l"
+#line 43 "src/main.l"
 
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "src/main.l"
+#line 45 "src/main.l"
 ECHO;
 	YY_BREAK
-#line 799 "src/lex.yy.c"
+#line 811 "src/lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1800,7 +1812,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 30 "src/main.l"
+#line 45 "src/main.l"
 
 
 int yywrap() {

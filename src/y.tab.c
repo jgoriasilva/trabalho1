@@ -444,8 +444,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    30,    31,    35,    45,    47,    51,    53,
-      55,    58,    61,    65,    66,    68
+       0,    31,    31,    32,    33,    40,    52,    54,    60,    62,
+      64,    70,    73,    79,    80,    82
 };
 #endif
 
@@ -1225,19 +1225,19 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 29 "src/main.y" /* yacc.c:1646  */
+#line 31 "src/main.y" /* yacc.c:1646  */
     { 	printf("\tPOP A\n; Resultado: %d\n; ", (yyvsp[-1].valor)); }
 #line 1231 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 30 "src/main.y" /* yacc.c:1646  */
+#line 32 "src/main.y" /* yacc.c:1646  */
     { printf("\tPOP A\n; "); }
 #line 1237 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 35 "src/main.y" /* yacc.c:1646  */
+#line 40 "src/main.y" /* yacc.c:1646  */
     {	char name = (yyvsp[-2].rotulo);
 			mem[name-'a'] = (yyvsp[0].valor); 
 			if(!flag[name-'a']) {
@@ -1249,40 +1249,40 @@ yyreduce:
     break;
 
   case 6:
-#line 45 "src/main.y" /* yacc.c:1646  */
+#line 52 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) + (yyvsp[0].valor); 
 			printf("\tPOP A\n\tPOP B\n\tADD A, B\n\tPUSH A\n"); }
 #line 1256 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 47 "src/main.y" /* yacc.c:1646  */
+#line 54 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); }
 #line 1262 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 51 "src/main.y" /* yacc.c:1646  */
+#line 60 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) * (yyvsp[0].valor); 
 			printf("\tPOP A\n\tPOP B\n\tMUL B\n\tPUSH A\n"); }
 #line 1269 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 53 "src/main.y" /* yacc.c:1646  */
+#line 62 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) / (yyvsp[0].valor); 
 				printf("\tPOP B\n\tPOP A\n\tDIV B\n\tPUSH A\n"); }
 #line 1276 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 55 "src/main.y" /* yacc.c:1646  */
+#line 64 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); }
 #line 1282 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 58 "src/main.y" /* yacc.c:1646  */
+#line 70 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = pow((yyvsp[-2].valor),(yyvsp[0].valor)); 
 			printf("\tPOP B\n\tPOP C\n\tMOV A, C\n.loop%d:\n\tMUL C\n\tDEC B\n\tCMP B, 1\n\tJNE .loop%d\n\tPUSH A\n", count, count); 
 			count++; }
@@ -1290,26 +1290,26 @@ yyreduce:
     break;
 
   case 12:
-#line 61 "src/main.y" /* yacc.c:1646  */
+#line 73 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor);}
 #line 1296 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 65 "src/main.y" /* yacc.c:1646  */
+#line 79 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[-1].valor); }
 #line 1302 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 66 "src/main.y" /* yacc.c:1646  */
+#line 80 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); 
 		printf ("\tPUSH %d\n", (yyvsp[0].valor)); }
 #line 1309 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 68 "src/main.y" /* yacc.c:1646  */
+#line 82 "src/main.y" /* yacc.c:1646  */
     { char name = (yyvsp[0].rotulo);
 		(yyval.valor) = mem[name-'a']; 
 		if(flag[(yyvsp[0].rotulo)-'a']) 
@@ -1549,7 +1549,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 79 "src/main.y" /* yacc.c:1906  */
+#line 93 "src/main.y" /* yacc.c:1906  */
 
 
 void yyerror(char *s) {
