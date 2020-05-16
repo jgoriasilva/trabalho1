@@ -9,7 +9,6 @@ int yylex(void);
 int count=0;
 int mem[26];
 int flag[26] = {0};
-int vcount[26] = {0}; 
 
 %}
 
@@ -35,9 +34,11 @@ S:
 C:
  	VAR '=' exp1 {	char name = $<rotulo>1;
 			mem[name-'a'] = $<valor>3; 
-			printf("\tJMP jump%c%d\nv%c%d:\n\tDB %d\njump%c%d:\n", name, vcount[name-'a'], name, vcount[name-'a'], $<valor>3, name, vcount[name-'a']); 
-			flag[name-'a'] = 1;
-			vcount[name-'a']++; }
+			if(!flag[name-'a']) {
+				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tMOV [C], %d\n", name, name, name, name, $<valor>3); 
+				flag[name-'a'] = 1; }
+			else
+				printf("\tMOV C, v%c\n\tMOV [C], %d\n", name, $<valor>3); }
 	;
 
 exp1:
@@ -67,7 +68,7 @@ exp4:
 	| VAR { char name = $<rotulo>1;
 		$<valor>$ = mem[name-'a']; 
 		if(flag[$<rotulo>1-'a']) 
-			printf("\tMOV C, v%c%d\n\tPUSH [C]\n", name, vcount[name-'a']-1 ); 
+			printf("\tMOV C, v%c\n\tPUSH [C]\n", name ); 
 		else{ 
 			printf("; "); 
 			yyerror("Variavel nao declarada"); } }
