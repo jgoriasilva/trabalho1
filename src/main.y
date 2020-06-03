@@ -29,7 +29,7 @@ int flag[26] = {0};
 
 S:
  	S exp1 EOL { 	printf("\tPOP A\n; Resultado: %d\n; ", $<valor>2); }
-	| S C EOL { printf("\tPOP A\n; "); }
+	| S C EOL { printf("\n; "); }
  	|
 	;
 
@@ -40,10 +40,10 @@ C:
  	VAR '=' exp1 {	char name = $<rotulo>1;
 			mem[name-'a'] = $<valor>3; 
 			if(!flag[name-'a']) {
-				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tMOV [C], %d\n", name, name, name, name, $<valor>3); 
+				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name, name, name, name); 
 				flag[name-'a'] = 1; }
 			else
-				printf("\tMOV C, v%c\n\tMOV [C], %d\n", name, $<valor>3); }
+				printf("\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name); }
 	;
 
 	/* Para a resolução das expressões matemáticas, foi implementado um sistema de prioridade de certas expressões sobre outras. Aqui, está implementada a expressão de mais baixo nível, chamada de exp1. Ela é composta pela operação de adição, que deve sempre ser resolvida por último. 'exp1' pode também gerar uma expressão imediatamente maior; no caso, 'exp2'.*/

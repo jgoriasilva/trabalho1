@@ -1232,7 +1232,7 @@ yyreduce:
 
   case 3:
 #line 32 "src/main.y" /* yacc.c:1646  */
-    { printf("\tPOP A\n; "); }
+    { printf("\n; "); }
 #line 1237 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1241,10 +1241,10 @@ yyreduce:
     {	char name = (yyvsp[-2].rotulo);
 			mem[name-'a'] = (yyvsp[0].valor); 
 			if(!flag[name-'a']) {
-				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tMOV [C], %d\n", name, name, name, name, (yyvsp[0].valor)); 
+				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name, name, name, name); 
 				flag[name-'a'] = 1; }
 			else
-				printf("\tMOV C, v%c\n\tMOV [C], %d\n", name, (yyvsp[0].valor)); }
+				printf("\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name); }
 #line 1249 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
