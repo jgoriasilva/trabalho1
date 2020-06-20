@@ -69,12 +69,18 @@
 #include "math.h"
 void yyerror(char *c);
 int yylex(void);
+
+/* Esta variável é utilizada para que cada operação de potencialização tenha seu próprio rótulo. */
 int count=0;
+
+/* Vetor que armazena os valores das variáveis para o código em C. As variáveis são posteriormente armazenadas em lugares da memória utilizando o código assembly. */
 int mem[26];
+
+/* Vetor que guarda uma flag para cada uma das variáveis, a ser explorado posteriormente no comando de atribuição de valores a variáveis. */
 int flag[26] = {0};
 
 
-#line 78 "src/y.tab.c" /* yacc.c:339  */
+#line 84 "src/y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -124,12 +130,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 25 "src/main.y" /* yacc.c:355  */
+#line 31 "src/main.y" /* yacc.c:355  */
 
 	int valor;
 	char rotulo;
 
-#line 133 "src/y.tab.c" /* yacc.c:355  */
+#line 139 "src/y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -146,7 +152,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 150 "src/y.tab.c" /* yacc.c:358  */
+#line 156 "src/y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -444,8 +450,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    40,    40,    41,    42,    54,    66,    68,    74,    76,
-      78,    85,    88,    94,    95,    97
+       0,    46,    46,    47,    48,    60,    72,    74,    80,    82,
+      84,    91,    94,   100,   101,   103
 };
 #endif
 
@@ -1225,19 +1231,19 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 40 "src/main.y" /* yacc.c:1646  */
+#line 46 "src/main.y" /* yacc.c:1646  */
     { 	printf("\tPOP A\n; Resultado: %d\n; ", (yyvsp[-1].valor)); }
-#line 1231 "src/y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 3:
-#line 41 "src/main.y" /* yacc.c:1646  */
-    { printf("\n; "); }
 #line 1237 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 3:
+#line 47 "src/main.y" /* yacc.c:1646  */
+    { printf("\n; "); }
+#line 1243 "src/y.tab.c" /* yacc.c:1646  */
+    break;
+
   case 5:
-#line 54 "src/main.y" /* yacc.c:1646  */
+#line 60 "src/main.y" /* yacc.c:1646  */
     {	char name = (yyvsp[-2].rotulo); /* Recebe o nome da variável e atribui a variável 'name' */
 			mem[name-'a'] = (yyvsp[0].valor);  /* O vetor 'mem' recebe o valor da variável na posição relativa da variável e.g. a variável a tem posição relativa 0, b tem posição relativa 1 e assim sucessivamente até a variável z. */
 			if(!flag[name-'a']) { /* Verifica em qual caso (explicado anteriormente) tal variável se encaixa, a partir do vetor 'flag'. */
@@ -1245,71 +1251,71 @@ yyreduce:
 				flag[name-'a'] = 1; } /* Atualiza-se o valor da flag de tal variável para que ela passe a cair no segundo caso. */
 			else
 				printf("\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name); }
-#line 1249 "src/y.tab.c" /* yacc.c:1646  */
+#line 1255 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 66 "src/main.y" /* yacc.c:1646  */
+#line 72 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) + (yyvsp[0].valor); 
 			printf("\tPOP A\n\tPOP B\n\tADD A, B\n\tPUSH A\n"); }
-#line 1256 "src/y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 7:
-#line 68 "src/main.y" /* yacc.c:1646  */
-    { (yyval.valor) = (yyvsp[0].valor); }
 #line 1262 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 8:
+  case 7:
 #line 74 "src/main.y" /* yacc.c:1646  */
+    { (yyval.valor) = (yyvsp[0].valor); }
+#line 1268 "src/y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 80 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) * (yyvsp[0].valor); 
 			printf("\tPOP A\n\tPOP B\n\tMUL B\n\tPUSH A\n"); }
-#line 1269 "src/y.tab.c" /* yacc.c:1646  */
+#line 1275 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 76 "src/main.y" /* yacc.c:1646  */
+#line 82 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) / (yyvsp[0].valor);
 				printf("\tPOP B\n\tPOP A\n\tDIV B\n\tPUSH A\n"); }
-#line 1276 "src/y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 10:
-#line 78 "src/main.y" /* yacc.c:1646  */
-    { (yyval.valor) = (yyvsp[0].valor); }
 #line 1282 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 10:
+#line 84 "src/main.y" /* yacc.c:1646  */
+    { (yyval.valor) = (yyvsp[0].valor); }
+#line 1288 "src/y.tab.c" /* yacc.c:1646  */
+    break;
+
   case 11:
-#line 85 "src/main.y" /* yacc.c:1646  */
+#line 91 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = pow((yyvsp[-2].valor),(yyvsp[0].valor)); 
 			printf("\tPOP B\n\tPOP C\n\tCMP B,0\n\tJE .zero%d\n\tJNE .nzero%d\n.zero%d:\n\tMOV A, 1\n\tJMP .end%d\n.nzero%d:\n\tMOV A, C\n.loop%d:\n\tMUL C\n\tDEC B\n\tCMP B, 1\n\tJNE .loop%d\n.end%d:\n\tPUSH A\n", count, count, count, count, count, count, count, count); 
 			count++; }
-#line 1290 "src/y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 12:
-#line 88 "src/main.y" /* yacc.c:1646  */
-    { (yyval.valor) = (yyvsp[0].valor);}
 #line 1296 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 13:
+  case 12:
 #line 94 "src/main.y" /* yacc.c:1646  */
-    { (yyval.valor) = (yyvsp[-1].valor); }
+    { (yyval.valor) = (yyvsp[0].valor);}
 #line 1302 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 13:
+#line 100 "src/main.y" /* yacc.c:1646  */
+    { (yyval.valor) = (yyvsp[-1].valor); }
+#line 1308 "src/y.tab.c" /* yacc.c:1646  */
+    break;
+
   case 14:
-#line 95 "src/main.y" /* yacc.c:1646  */
+#line 101 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); 
 		printf ("\tPUSH %d\n", (yyvsp[0].valor)); }
-#line 1309 "src/y.tab.c" /* yacc.c:1646  */
+#line 1315 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 97 "src/main.y" /* yacc.c:1646  */
+#line 103 "src/main.y" /* yacc.c:1646  */
     { char name = (yyvsp[0].rotulo);
 		(yyval.valor) = mem[name-'a']; 
 		if(flag[(yyvsp[0].rotulo)-'a']) 
@@ -1317,11 +1323,11 @@ yyreduce:
 		else{ 
 			printf("; "); 
 			yyerror("Variavel nao declarada. Por favor, primeiro atribua um valor a esta variável utilizando o comando VAR = NUM. "); } }
-#line 1321 "src/y.tab.c" /* yacc.c:1646  */
+#line 1327 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1325 "src/y.tab.c" /* yacc.c:1646  */
+#line 1331 "src/y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1549,8 +1555,10 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 108 "src/main.y" /* yacc.c:1906  */
+#line 112 "src/main.y" /* yacc.c:1906  */
 
+
+/* O código pode retornar um erro. Um exemplo é quando o usuário tenta utilizar uma variável que não teve valor atribuído previamente. */
 
 void yyerror(char *s) {
 	printf("ERRO: %s\n", s);

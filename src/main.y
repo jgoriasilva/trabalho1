@@ -15,8 +15,14 @@ RA: 199567
 #include "math.h"
 void yyerror(char *c);
 int yylex(void);
+
+/* Esta variável é utilizada para que cada operação de potencialização tenha seu próprio rótulo. */
 int count=0;
+
+/* Vetor que armazena os valores das variáveis para o código em C. As variáveis são posteriormente armazenadas em lugares da memória utilizando o código assembly. */
 int mem[26];
+
+/* Vetor que guarda uma flag para cada uma das variáveis, a ser explorado posteriormente no comando de atribuição de valores a variáveis. */
 int flag[26] = {0};
 
 %}
@@ -47,8 +53,8 @@ S:
 
 C:
  	/* Para atribuição de valores a variáveis, existem dois casos:
-	1. É a primeira vez que tal variável é declarada: Neste caso, o código irá alocar um espaço da mémoria para a variável 'VAR' e irá armazenar neste local o valor 'exp1' desejado pelo usuário
-	2. A variável já foi previamente declarada e teve um valor atribuído a ela: Neste caso, o código irá simplesmente buscar a posição de memória onde a variável 'VAR' foi armazenada e irá substituir o valor lá alocado pelo novo valor 'exp1'
+	1. É a primeira vez que tal variável aparece: Neste caso, o código irá alocar um espaço da mémoria para a variável 'VAR' e irá armazenar neste local o valor 'exp1' desejado pelo usuário.
+	2. A variável já teve previamente um valor atribuído a ela: Neste caso, o código irá simplesmente buscar a posição de memória onde a variável 'VAR' foi armazenada e irá substituir o valor lá alocado pelo novo valor 'exp1'.
 	A identificação do caso é feita de forma individual para cada variável. Todas as variáveis começam com sua posição no vetor 'flag' em 0. Assim, elas sempre irão cair no primeiro caso na primeira execução. Depois, elas tem sua posição no vetor 'flag' atualizada para 1, e então só passam a cair no segundo caso. */
 
  	VAR '=' exp1 {	char name = $<rotulo>1; /* Recebe o nome da variável e atribui a variável 'name' */
@@ -103,9 +109,9 @@ exp4:
 			yyerror("Variavel nao declarada. Por favor, primeiro atribua um valor a esta variável utilizando o comando VAR = NUM. "); } } /* Caso a variável ainda não tenha tido um valor atribuído a ela (não-declarada), o programa retorna um erro. */
 	;
 
-
-
 %%
+
+/* O código pode retornar um erro. Um exemplo é quando o usuário tenta utilizar uma variável que não teve valor atribuído previamente. */
 
 void yyerror(char *s) {
 	printf("ERRO: %s\n", s);

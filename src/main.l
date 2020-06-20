@@ -1,3 +1,13 @@
+/*
+
+Código: main.l
+Objetivo: Identificar os tokens basicos (caracteres terminais) para a implementação das calculadoras
+Nome: João Antônio Gória Silva
+RA: 199567
+
+*/
+
+
 
 %{
 #include <stdlib.h>
