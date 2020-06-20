@@ -450,8 +450,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    46,    46,    47,    48,    60,    72,    74,    80,    82,
-      84,    91,    94,   100,   101,   103
+       0,    46,    46,    47,    48,    59,    71,    73,    79,    81,
+      83,    90,    93,    99,   100,   102
 };
 #endif
 
@@ -1232,92 +1232,92 @@ yyreduce:
     {
         case 2:
 #line 46 "src/main.y" /* yacc.c:1646  */
-    { 	printf("\tPOP A\n; Resultado: %d\n; ", (yyvsp[-1].valor)); }
+    { 	printf("\tPOP A\n; Resultado (armazenado em A): %d\n; Insira uma expressão ou comando: ", (yyvsp[-1].valor)); }
 #line 1237 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 47 "src/main.y" /* yacc.c:1646  */
-    { printf("\n; "); }
+    { printf("\n; Insira uma expresão ou comando: "); }
 #line 1243 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 60 "src/main.y" /* yacc.c:1646  */
-    {	char name = (yyvsp[-2].rotulo); /* Recebe o nome da variável e atribui a variável 'name' */
-			mem[name-'a'] = (yyvsp[0].valor);  /* O vetor 'mem' recebe o valor da variável na posição relativa da variável e.g. a variável a tem posição relativa 0, b tem posição relativa 1 e assim sucessivamente até a variável z. */
+#line 59 "src/main.y" /* yacc.c:1646  */
+    {	char name = (yyvsp[-2].rotulo); /* Recebe o nome da variável e atribui à variável 'name' */
+			mem[name-'a'] = (yyvsp[0].valor);  /* O vetor 'mem' recebe o valor da variável na posição relativa da variável e.g. a variável 'a' tem posição relativa 0, 'b' tem posição relativa 1 e assim sucessivamente até a variável 'z'. */
 			if(!flag[name-'a']) { /* Verifica em qual caso (explicado anteriormente) tal variável se encaixa, a partir do vetor 'flag'. */
-				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name, name, name, name); /* Aqui, é implementada a primeira alocação da variável. Para isso, primeiro dá-se o comando JMP jump'name', para que o código prossiga com a sua execução. Depois, aloca-se um espaço de memória para a variável v'name'. Cria-se então o rótulo jump'name' que é exatamente para onde o código pula com o comando JMP jump'name'. Depois, busca-se o endereço alocado de memória para v'name' e atribui seu endereço no registrador C. Então, o valor desejado para a atribuição é colocado na pilha e finalmente passado para o endereço apontado por C. Assim, a variável tem um espaço de memória reservado e seu valor está atribuído. */
-				flag[name-'a'] = 1; } /* Atualiza-se o valor da flag de tal variável para que ela passe a cair no segundo caso. */
+				printf("\tJMP jump%c\nv%c:\njump%c:\n\tMOV C, v%c\n\tPOP A\n\tMOV [C], A", name, name, name, name); /* Aqui, é implementada a primeira alocação da variável. Para isso, primeiro dá-se o comando JMP jump'name', para que o código prossiga com a sua execução. Depois, aloca-se um espaço de memória para a variável v'name'. Cria-se então o rótulo jump'name' que é exatamente para onde o código pula com o comando JMP jump'name'. Depois, busca-se onde na mémoria foi alocada a variável v'name' e atribui seu endereço no registrador C. Então, o valor desejado para a atribuição é retirado da pilha e finalmente armazenado no endereço apontado por C. Assim, a variável tem um espaço de memória reservado e seu valor está atribuído. */
+				flag[name-'a'] = 1; } /* Atualiza-se o valor da flag de tal variável para que ela passe a cair sempre no segundo caso. */
 			else
-				printf("\tMOV C, v%c\n\tPOP A\n\tMOV [C], A\n", name); }
+				printf("\tMOV C, v%c\n\tPOP A\n\tMOV [C], A", name); }
 #line 1255 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 72 "src/main.y" /* yacc.c:1646  */
+#line 71 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) + (yyvsp[0].valor); 
 			printf("\tPOP A\n\tPOP B\n\tADD A, B\n\tPUSH A\n"); }
 #line 1262 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 74 "src/main.y" /* yacc.c:1646  */
+#line 73 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); }
 #line 1268 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 80 "src/main.y" /* yacc.c:1646  */
+#line 79 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) * (yyvsp[0].valor); 
 			printf("\tPOP A\n\tPOP B\n\tMUL B\n\tPUSH A\n"); }
 #line 1275 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 82 "src/main.y" /* yacc.c:1646  */
+#line 81 "src/main.y" /* yacc.c:1646  */
     {	(yyval.valor) = (yyvsp[-2].valor) / (yyvsp[0].valor);
 				printf("\tPOP B\n\tPOP A\n\tDIV B\n\tPUSH A\n"); }
 #line 1282 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 84 "src/main.y" /* yacc.c:1646  */
+#line 83 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); }
 #line 1288 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 91 "src/main.y" /* yacc.c:1646  */
+#line 90 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = pow((yyvsp[-2].valor),(yyvsp[0].valor)); 
-			printf("\tPOP B\n\tPOP C\n\tCMP B,0\n\tJE .zero%d\n\tJNE .nzero%d\n.zero%d:\n\tMOV A, 1\n\tJMP .end%d\n.nzero%d:\n\tMOV A, C\n.loop%d:\n\tMUL C\n\tDEC B\n\tCMP B, 1\n\tJNE .loop%d\n.end%d:\n\tPUSH A\n", count, count, count, count, count, count, count, count); 
+			printf("\tPOP B\n\tPOP C\n\tCMP B,0\n\tJE .zero%d\n\tJNE .nzero%d\n.zero%d:\n\tMOV A, 1\n\tJMP .end%d\n.nzero%d:\n\tMOV A, C\n\tCMP B, 1\n\tJE .end%d\n.loop%d:\n\tMUL C\n\tDEC B\n\tCMP B, 1\n\tJNE .loop%d\n.end%d:\n\tPUSH A\n", count, count, count, count, count, count, count, count, count); 
 			count++; }
 #line 1296 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 94 "src/main.y" /* yacc.c:1646  */
+#line 93 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor);}
 #line 1302 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 100 "src/main.y" /* yacc.c:1646  */
+#line 99 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[-1].valor); }
 #line 1308 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 101 "src/main.y" /* yacc.c:1646  */
+#line 100 "src/main.y" /* yacc.c:1646  */
     { (yyval.valor) = (yyvsp[0].valor); 
 		printf ("\tPUSH %d\n", (yyvsp[0].valor)); }
 #line 1315 "src/y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 103 "src/main.y" /* yacc.c:1646  */
+#line 102 "src/main.y" /* yacc.c:1646  */
     { char name = (yyvsp[0].rotulo);
-		(yyval.valor) = mem[name-'a']; 
+		(yyval.valor) = mem[name-'a'];
 		if(flag[(yyvsp[0].rotulo)-'a']) 
 			printf("\tMOV C, v%c\n\tPUSH [C]\n", name ); /* Para uma váriavel, deve-se acessar a posição de memória e então empurrar para a pilha o valor armazenado nesta posição. */
 		else{ 
@@ -1555,7 +1555,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 112 "src/main.y" /* yacc.c:1906  */
+#line 111 "src/main.y" /* yacc.c:1906  */
 
 
 /* O código pode retornar um erro. Um exemplo é quando o usuário tenta utilizar uma variável que não teve valor atribuído previamente. */
@@ -1566,9 +1566,10 @@ void yyerror(char *s) {
 
 int main() {
 	/* Inicializa os registradores e prepara a interface para recebimento de uma expressão matemática. */
+	printf("; COPIE A PARTIR DAQUI PARA SIMULAÇÃO\n");
 	printf("; Inicialização dos registradores");
 	printf("\n\tMOV A, 0\n\tMOV B, 0\n\tMOV C, 0\n\tMOV D, 0\n");
-	printf("; ");
+	printf("; Insira uma expressão ou comando: ");
   	yyparse();
     	return 0;
 }

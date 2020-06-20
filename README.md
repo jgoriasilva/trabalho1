@@ -27,6 +27,7 @@ Depois de digitar o comando 'make run' no terminal, o programa será executado. 
 
 O programa irá então printar o código assembly a ser executado no simulador supracitado para a execução da expressão matemática inserida pelo usuário. Para maior conforto do usuário, o código gerado apresenta as expressões inseridas como comentários para o código assembly, bem como o resultado final da expressão. Assim sendo, o usuário precisa simplesmente copiar todo o texto imprimido na tela e colá-lo no simulador para que a execução seja feita.
 
+
 ## Autor
 
 João Antônio Gória Silva -- jgoriasilva@gmail.com
