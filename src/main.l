@@ -1,7 +1,7 @@
 /*
 
 Código: main.l
-Objetivo: Identificar os tokens basicos (caracteres terminais) para a implementação das calculadoras
+Objetivo: Identificar os tokens basicos (caracteres terminais) para a implementação da calculadora
 Nome: João Antônio Gória Silva
 RA: 199567
 

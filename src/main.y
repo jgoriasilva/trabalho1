@@ -40,7 +40,7 @@ int flag[26] = {0};
 
 %%
 
-	/* Toda entrada da calculadora é uma sequência de expressões matemáticas ou comandos que atribuem valores a variaveis, cada um separado por um caracter \n. Ao final de cada expressão, a calculadora consegue calcular o resultado da expressão inserida graças ao fato de que os resultados das expressões são subidos na árvore da calculadora. */
+	/* Toda entrada da calculadora é uma sequência de expressões matemáticas ou comandos que atribuem valores a variaveis, cada um separado por um caracter \n. Ao final de cada expressão, a calculadora consegue calcular o resultado da expressão inserida graças ao fato de que os resultados das expressões são subidos na árvore da calculadora. De qualquer forma, NÃO existe simplificação de expressão. A calculadora em assembly executa todas as operações. */
 
 S:
  	S exp1 EOL { 	printf("\tPOP A\n; Resultado (armazenado em A): %d\n; Insira uma expressão ou comando: ", $<valor>2); } /* Ao fim de cada expressão com valor, o valor final é armazenado em A. */
